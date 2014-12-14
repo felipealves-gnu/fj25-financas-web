@@ -1,0 +1,36 @@
+	<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="controlefinancas" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<jta-data-source>java:/fj25DS</jta-data-source>
+		<class>br.com.caelum.financas.modelo.Conta</class>
+		<class>br.com.caelum.financas.modelo.Movimentacao</class>
+        <class>br.com.caelum.financas.modelo.Categoria</class>
+
+        <!--<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode> --> <!-- somente as que tem @Cacheble serão cacheadas-->
+
+        <shared-cache-mode>ALL</shared-cache-mode>
+
+        <properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+
+            <property name="hibernate.default_schema" value="fj25" /> <!-- Without this line JPA Console(inside IntelliJ) will return '[3D000] No database selected' error -->
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			
+			<!-- poderia ser: update, create, create-drop, none -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+            <property name="hibernate.cache.use_second_level_cache" value="true"/>
+            <!-- Ver HQL gerada pelo Criteria juntamente com o sql -->
+            <property name="hibernate.use_sql_comments" value="true"/>
+            <!-- Estatísticas com hibernate -->
+            <property name="hibernate.generate_statistics" value="true"/>
+		</properties>
+	</persistence-unit>
+
+    </persistence>
